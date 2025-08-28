@@ -124,8 +124,54 @@
             box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
         }
 
+        /* Language Switcher */
+        .language-switcher {
+            position: fixed;
+            top: 2rem;
+            right: 2rem;
+            z-index: 1000;
+            display: flex;
+            gap: 0.5rem;
+        }
+
+        .lang-btn {
+            padding: 0.5rem 1rem;
+            background: rgba(255, 255, 255, 0.15);
+            color: rgba(255, 255, 255, 0.9);
+            text-decoration: none;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            -webkit-backdrop-filter: blur(10px);
+            backdrop-filter: blur(10px);
+        }
+
+        .lang-btn:hover {
+            background: rgba(255, 255, 255, 0.25);
+            color: white;
+            transform: translateY(-1px);
+        }
+
+        .lang-btn.active {
+            background: rgba(255, 255, 255, 0.3);
+            color: white;
+            border-color: rgba(255, 255, 255, 0.5);
+        }
+
         /* Mobile Responsive */
         @media (max-width: 768px) {
+            .language-switcher {
+                top: 1rem;
+                right: 1rem;
+            }
+
+            .lang-btn {
+                padding: 0.4rem 0.8rem;
+                font-size: 0.8rem;
+            }
+
             .container {
                 padding: 1.5rem;
             }
@@ -191,6 +237,12 @@
     </style>
 </head>
 <body>
+    <!-- Language Switcher -->
+    <div class="language-switcher">
+        <a href="/" class="lang-btn">한국어</a>
+        <a href="/en/" class="lang-btn active">English</a>
+    </div>
+
     <div class="container">
         <div class="avatar">
             👨‍💻
