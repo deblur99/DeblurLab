@@ -22,7 +22,7 @@ dist-ssr/
 .vscode/
 !.vscode/extensions.json # Keep extensions.json if desired
 .idea/
-.DS_Store # macOS specific
+.DS_Store
 *.suo
 *.ntvs*
 *.njsproj
