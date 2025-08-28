@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DeblurLab - Deblur</title>
+    <meta name="description" content="Introduction to developer Deblur and DeblurLab.">
+    <link rel="stylesheet" as="style" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css" />
+    <style>
+        body {
+            font-family: "Pretendard Variable", Pretendard, -apple-system, BlinkMacSystemFont, system-ui, Roboto, "Helvetica Neue", "Segoe UI", "Apple SD Gothic Neo", "Noto Sans KR", "Malgun Gothic", "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", sans-serif;
+            margin: 0;
+            padding: 0;
+            background: linear-gradient(135deg, #5a67d8 0%, #6b46c1 50%, #553c9a 100%);
+            color: white;
+            overflow: hidden;
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .container {
+            text-align: center;
+            max-width: 600px;
+            padding: 2rem;
+        }
+
+        .avatar {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.2);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 2rem;
+            border: 3px solid rgba(255, 255, 255, 0.4);
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+            font-size: 3rem;
+        }
+
+        .name {
+            font-size: 3rem;
+            font-weight: bold;
+            margin: 0 0 0.5rem 0;
+            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+        }
+
+        .lab-name {
+            font-size: 1.5rem;
+            color: rgba(255, 255, 255, 0.9);
+            margin: 0 0 2rem 0;
+            text-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
+        }
+
+        .description {
+            font-size: 1.2rem;
+            line-height: 1.6;
+            color: rgba(255, 255, 255, 0.95);
+            margin: 0 0 3rem 0;
+            text-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
+        }
+
+        .contact-links {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            align-items: center;
+        }
+
+        .contact-item {
+            display: flex;
+            align-items: center;
+            text-decoration: none;
+            color: rgba(255, 255, 255, 0.9);
+            transition: all 0.3s ease;
+            padding: 0.5rem;
+            border-radius: 8px;
+        }
+
+        .contact-item:hover {
+            color: white;
+            background: rgba(255, 255, 255, 0.1);
+            transform: translateY(-2px);
+        }
+
+        .contact-icon {
+            font-size: 1.5rem;
+            margin-right: 0.5rem;
+        }
+
+        .contact-text {
+            font-size: 0.9rem;
+            font-weight: 500;
+        }
+
+        .social-links {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            margin-top: 1rem;
+        }
+
+        .social-link {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.15);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-decoration: none;
+            color: rgba(255, 255, 255, 0.9);
+            transition: all 0.3s ease;
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            font-size: 1.2rem;
+        }
+
+        .social-link:hover {
+            background: rgba(255, 255, 255, 0.25);
+            color: white;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+        }
+
+        /* Mobile Responsive */
+        @media (max-width: 768px) {
+            .container {
+                padding: 1.5rem;
+            }
+
+            .avatar {
+                width: 100px;
+                height: 100px;
+                font-size: 2.5rem;
+                margin-bottom: 1.5rem;
+            }
+
+            .name {
+                font-size: 2.5rem;
+            }
+
+            .lab-name {
+                font-size: 1.3rem;
+            }
+
+            .description {
+                font-size: 1.1rem;
+                margin-bottom: 2rem;
+            }
+
+            .contact-links {
+                flex-direction: column;
+                gap: 1rem;
+            }
+
+            .social-links {
+                gap: 0.8rem;
+                margin-top: 1.5rem;
+            }
+
+            .social-link {
+                width: 35px;
+                height: 35px;
+                font-size: 1.1rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .container {
+                padding: 1rem;
+            }
+
+            .name {
+                font-size: 2rem;
+            }
+
+            .lab-name {
+                font-size: 1.1rem;
+            }
+
+            .description {
+                font-size: 1rem;
+            }
+
+            .contact-text {
+                font-size: 0.8rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="avatar">
+            👨‍💻
+        </div>
+        
+        <h1 class="name">Deblur</h1>
+        <p class="lab-name">DeblurLab</p>
+        
+        <p class="description">
+            Full Stack Developer & Product Creator.<br>
+            Building solutions for better user experiences.
+        </p>
+        
+        <div class="contact-links">
+            <a href="mailto:deblur@deblurlab.com" class="contact-item">
+                <div class="contact-icon">📧</div>
+                <div class="contact-text">deblur@deblurlab.com</div>
+            </a>
+        </div>
+        
+        <div class="social-links">
+            <a href="https://linkedin.com/in/deblur99" target="_blank" rel="noopener noreferrer" class="social-link" title="LinkedIn">
+                💼
+            </a>
+            <a href="https://github.com/deblur99" target="_blank" rel="noopener noreferrer" class="social-link" title="GitHub">
+                🐙
+            </a>
+        </div>
+    </div>
+</body>
+</html>
