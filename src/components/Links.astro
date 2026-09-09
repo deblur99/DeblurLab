@@ -1,0 +1,188 @@
+---
+import { APPS, CONTACT_EMAIL, SOCIALS, appStoreUrl, localePath, type Locale } from '../consts';
+
+interface Props {
+  locale: Locale;
+}
+
+const { locale } = Astro.props;
+
+const COPY = {
+  ko: {
+    lede: '디블러랩의 모든 링크를 한곳에 모았습니다.',
+    apps: '제품',
+    comingSoon: '출시 준비 중',
+    follow: '팔로우',
+    more: '더 보기',
+    support: '지원 및 문의',
+    privacy: '개인정보처리방침',
+    email: '이메일 보내기',
+  },
+  en: {
+    lede: 'Every DeblurLab link in one place.',
+    apps: 'Apps',
+    comingSoon: 'Coming soon',
+    follow: 'Follow',
+    more: 'More',
+    support: 'Support',
+    privacy: 'Privacy Policy',
+    email: 'Send an email',
+  },
+}[locale];
+
+/** 유입 채널을 모르는 경우의 기본값. 실제 채널은 아래 스크립트가 ct 파라미터로 덮어쓴다. */
+const DEFAULT_CAMPAIGN = 'linkinbio';
+---
+
+<div class="shell">
+  <div class="links">
+    <p class="links__lede">{COPY.lede}</p>
+
+    <h2>{COPY.apps}</h2>
+    <ul class="link-list">
+      {
+        APPS.map((app) => (
+          <li>
+            {app.status === 'available' && app.appStoreId ? (
+              <a
+                class="link-card"
+                href={appStoreUrl(app.appStoreId, DEFAULT_CAMPAIGN)}
+                data-app-store={app.appStoreId}
+              >
+                <span class="link-card__label">{app.name}</span>
+                <span class="link-card__meta">{app.platforms}</span>
+              </a>
+            ) : (
+              <span class="link-card link-card--disabled" aria-disabled="true">
+                <span class="link-card__label">{app.name}</span>
+                <span class="link-card__meta">
+                  {app.platforms} · {COPY.comingSoon}
+                </span>
+              </span>
+            )}
+          </li>
+        ))
+      }
+    </ul>
+
+    <h2>{COPY.follow}</h2>
+    <ul class="link-list">
+      {
+        SOCIALS.map((social) => (
+          <li>
+            <a class="link-card" href={social.href} target="_blank" rel="noopener noreferrer me">
+              <span class="link-card__label">{social.label}</span>
+            </a>
+          </li>
+        ))
+      }
+    </ul>
+
+    <h2>{COPY.more}</h2>
+    <ul class="link-list">
+      <li>
+        <a class="link-card" href={localePath(locale, '/support')}>
+          <span class="link-card__label">{COPY.support}</span>
+        </a>
+      </li>
+      <li>
+        <a class="link-card" href={localePath(locale, '/privacy')}>
+          <span class="link-card__label">{COPY.privacy}</span>
+        </a>
+      </li>
+      <li>
+        <a class="link-card" href={`mailto:${CONTACT_EMAIL}`}>
+          <span class="link-card__label">{COPY.email}</span>
+          <span class="link-card__meta">{CONTACT_EMAIL}</span>
+        </a>
+      </li>
+    </ul>
+  </div>
+</div>
+
+<script>
+  // 숏폼 프로필의 링크가 ?ct=instagram_reels 같은 값을 달고 들어온다.
+  // 그 값을 App Store 링크로 그대로 넘겨야 App Analytics에서 채널별로 잡힌다.
+  const params = new URLSearchParams(window.location.search);
+  const campaign = params.get('ct') ?? params.get('utm_source');
+
+  if (campaign && /^[\w.-]{1,80}$/.test(campaign)) {
+    for (const anchor of document.querySelectorAll<HTMLAnchorElement>('[data-app-store]')) {
+      const url = new URL(anchor.href);
+      url.searchParams.set('ct', campaign);
+      anchor.href = url.toString();
+    }
+  }
+</script>
+
+<style>
+  .links {
+    padding-bottom: clamp(3rem, 8vw, 5rem);
+    max-width: 34rem;
+  }
+
+  .links__lede {
+    margin: 0 0 2rem;
+    color: var(--text-muted);
+  }
+
+  .links h2 {
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 0.09em;
+    color: var(--text-muted);
+    margin: 2rem 0 0.75rem;
+  }
+
+  .link-list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: grid;
+    gap: 0.5rem;
+  }
+
+  .link-card {
+    display: flex;
+    flex-direction: column;
+    gap: 0.15rem;
+    padding: 0.875rem 1.125rem;
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    background: var(--surface);
+    text-decoration: none;
+    color: var(--text);
+    transition:
+      border-color 0.15s ease,
+      transform 0.15s ease;
+  }
+
+  a.link-card:hover {
+    border-color: var(--accent);
+    transform: translateY(-1px);
+  }
+
+  .link-card--disabled {
+    opacity: 0.55;
+    cursor: default;
+  }
+
+  .link-card__label {
+    font-weight: 600;
+  }
+
+  .link-card__meta {
+    font-size: 0.8125rem;
+    color: var(--text-muted);
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .link-card {
+      transition: none;
+    }
+
+    a.link-card:hover {
+      transform: none;
+    }
+  }
+</style>

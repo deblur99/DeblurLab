@@ -1,0 +1,52 @@
+---
+import BusinessInfo from './BusinessInfo.astro';
+import { SOCIALS, localePath, type Locale } from '../consts';
+import { NAV, useTranslations } from '../i18n/ui';
+
+interface Props {
+  locale: Locale;
+}
+
+const { locale } = Astro.props;
+const t = useTranslations(locale);
+
+const links = [...NAV, { path: '/links', key: 'nav.links' } as const];
+---
+
+<footer class="site-footer">
+  <div class="shell">
+    <div class="site-footer__grid">
+      <section>
+        <h2>DeblurLab</h2>
+        <ul class="footer-list">
+          {links.map((item) => <li><a href={localePath(locale, item.path)}>{t(item.key)}</a></li>)}
+        </ul>
+      </section>
+
+      <section>
+        <h2>{t('footer.social')}</h2>
+        <ul class="footer-list">
+          {
+            SOCIALS.map((social) => (
+              <li>
+                <a href={social.href} target="_blank" rel="noopener noreferrer me">
+                  {social.label}
+                </a>
+              </li>
+            ))
+          }
+        </ul>
+      </section>
+
+      <section>
+        <h2>{t('footer.business')}</h2>
+        <BusinessInfo locale={locale} />
+      </section>
+    </div>
+
+    <div class="site-footer__base">
+      <span>{t('footer.rights')}</span>
+      <span>{t('site.tagline')}</span>
+    </div>
+  </div>
+</footer>

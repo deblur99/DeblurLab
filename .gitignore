@@ -12,6 +12,7 @@ node_modules/
 # Build artifacts
 dist/
 dist-ssr/
+.astro/
 
 # Environment variables
 .env

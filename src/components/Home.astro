@@ -1,0 +1,215 @@
+---
+import { APPS, SOCIALS, appStoreUrl, localePath, type Locale } from '../consts';
+import { HOME } from '../i18n/home';
+
+interface Props {
+  locale: Locale;
+}
+
+const { locale } = Astro.props;
+const copy = HOME[locale];
+---
+
+<section class="hero shell">
+  <p class="hero__tagline">{copy.tagline}</p>
+  <p class="hero__intro">{copy.intro}</p>
+</section>
+
+<section class="shell section">
+  <h2>{copy.lineupTitle}</h2>
+  <ul class="app-grid">
+    {
+      APPS.map((app) => (
+        <li class="app-card">
+          <div class="app-card__head">
+            <h3>{app.name}</h3>
+            {app.status === 'coming-soon' && <span class="badge">{copy.comingSoon}</span>}
+          </div>
+          <p class="app-card__platforms">{app.platforms}</p>
+          <p>{copy.descriptions[app.id]}</p>
+          {app.status === 'available' && app.appStoreId && (
+            <a class="app-card__cta" href={appStoreUrl(app.appStoreId, 'website_about')}>
+              {copy.viewOnStore}
+            </a>
+          )}
+        </li>
+      ))
+    }
+  </ul>
+</section>
+
+<section class="shell section">
+  <h2>{copy.principlesTitle}</h2>
+  <ul class="principles">
+    {
+      copy.principles.map((item) => (
+        <li>
+          <h3>{item.title}</h3>
+          <p>{item.body}</p>
+        </li>
+      ))
+    }
+  </ul>
+</section>
+
+<section class="shell section">
+  <h2>{copy.contactTitle}</h2>
+  <p class="contact-body">{copy.contactBody}</p>
+  <p class="contact-actions">
+    <a href="mailto:contact@deblurlab.com">contact@deblurlab.com</a>
+    <span aria-hidden="true">·</span>
+    <a href={localePath(locale, '/support')}>{copy.supportLink}</a>
+  </p>
+  <ul class="social-row">
+    {
+      SOCIALS.map((social) => (
+        <li>
+          <a href={social.href} target="_blank" rel="noopener noreferrer me">
+            {social.label}
+          </a>
+        </li>
+      ))
+    }
+  </ul>
+</section>
+
+<style>
+  .hero {
+    padding-block: clamp(3.5rem, 10vw, 6.5rem) clamp(2rem, 5vw, 3rem);
+  }
+
+  .hero__tagline {
+    font-size: clamp(2rem, 6.5vw, 3.5rem);
+    font-weight: 700;
+    line-height: 1.15;
+    letter-spacing: -0.03em;
+    white-space: pre-line;
+    margin: 0;
+  }
+
+  .hero__intro {
+    margin: 1.5rem 0 0;
+    max-width: 48ch;
+    font-size: 1.0625rem;
+    color: var(--text-muted);
+  }
+
+  .section {
+    padding-block: clamp(2rem, 5vw, 3rem);
+  }
+
+  .section > h2 {
+    font-size: 0.8125rem;
+    text-transform: uppercase;
+    letter-spacing: 0.09em;
+    color: var(--text-muted);
+    margin: 0 0 1.5rem;
+  }
+
+  .app-grid,
+  .principles,
+  .social-row {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+
+  .app-grid {
+    display: grid;
+    gap: 1rem;
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 20rem), 1fr));
+  }
+
+  .app-card {
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    background: var(--surface);
+    padding: 1.5rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+
+  .app-card__head {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    flex-wrap: wrap;
+  }
+
+  .app-card h3 {
+    margin: 0;
+    font-size: 1.125rem;
+  }
+
+  .badge {
+    font-size: 0.75rem;
+    font-weight: 600;
+    padding: 0.15rem 0.55rem;
+    border-radius: 999px;
+    border: 1px solid var(--border);
+    color: var(--text-muted);
+    white-space: nowrap;
+  }
+
+  .app-card__platforms {
+    margin: 0;
+    font-size: 0.8125rem;
+    color: var(--text-muted);
+    letter-spacing: 0.01em;
+  }
+
+  .app-card p:not(.app-card__platforms) {
+    margin: 0;
+    color: var(--text-muted);
+  }
+
+  .app-card__cta {
+    margin-top: auto;
+    padding-top: 0.5rem;
+    font-weight: 600;
+    font-size: 0.9375rem;
+  }
+
+  .principles {
+    display: grid;
+    gap: 1.75rem;
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 16rem), 1fr));
+  }
+
+  .principles h3 {
+    margin: 0 0 0.35rem;
+    font-size: 1rem;
+  }
+
+  .principles p {
+    margin: 0;
+    color: var(--text-muted);
+    font-size: 0.9375rem;
+  }
+
+  .contact-body {
+    margin: 0;
+    color: var(--text-muted);
+  }
+
+  .contact-actions {
+    margin: 0.5rem 0 0;
+    display: flex;
+    gap: 0.6rem;
+    flex-wrap: wrap;
+    font-weight: 600;
+  }
+
+  .contact-actions span {
+    color: var(--text-muted);
+  }
+
+  .social-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem 1.25rem;
+    margin-top: 1.5rem;
+    font-size: 0.9375rem;
+  }
+</style>

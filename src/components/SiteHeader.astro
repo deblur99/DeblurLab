@@ -1,0 +1,63 @@
+---
+import { LOCALES, localePath, type Locale } from '../consts';
+import { NAV, useTranslations } from '../i18n/ui';
+
+interface Props {
+  locale: Locale;
+  path: string;
+}
+
+const { locale, path } = Astro.props;
+const t = useTranslations(locale);
+
+const LOCALE_LABEL: Record<Locale, string> = { ko: '한국어', en: 'English' };
+---
+
+<header class="site-header">
+  <div class="shell site-header__inner">
+    <a class="brand" href={localePath(locale, '/')} aria-label={t('nav.home')}>
+      <img src="/deblurlab-logo.png" alt="" width="32" height="32" />
+      <span>DeblurLab</span>
+    </a>
+
+    <nav class="site-nav" aria-label={t('nav.home')}>
+      {
+        NAV.map((item) => (
+          <a
+            href={localePath(locale, item.path)}
+            aria-current={item.path === path ? 'page' : undefined}
+          >
+            {t(item.key)}
+          </a>
+        ))
+      }
+    </nav>
+
+    <div class="lang-switch" role="group" aria-label={t('lang.label')}>
+      {
+        LOCALES.map((l) => (
+          <a
+            href={localePath(l, path)}
+            hreflang={l}
+            lang={l}
+            aria-current={l === locale ? 'true' : undefined}
+          >
+            {l.toUpperCase()}
+            <span class="sr-only"> {LOCALE_LABEL[l]}</span>
+          </a>
+        ))
+      }
+    </div>
+  </div>
+</header>
+
+<style>
+  .sr-only {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    clip-path: inset(50%);
+    white-space: nowrap;
+  }
+</style>

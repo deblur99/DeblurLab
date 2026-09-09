@@ -1,0 +1,38 @@
+---
+import { BUSINESS, type Locale } from '../consts';
+import { useTranslations } from '../i18n/ui';
+
+interface Props {
+  locale: Locale;
+}
+
+const { locale } = Astro.props;
+const t = useTranslations(locale);
+
+const name = locale === 'ko' ? `${BUSINESS.nameKo} (${BUSINESS.nameEn})` : BUSINESS.nameEn;
+const owner = locale === 'ko' ? BUSINESS.ownerKo : BUSINESS.ownerEn;
+const address = locale === 'ko' ? BUSINESS.addressKo : BUSINESS.addressEn;
+
+const rows: Array<{ term: string; value: string }> = [
+  { term: t('footer.business.name'), value: name },
+  { term: t('footer.business.owner'), value: owner },
+  { term: t('footer.business.registration'), value: BUSINESS.registrationNumber },
+  ...(BUSINESS.mailOrderNumber
+    ? [{ term: t('footer.business.mailOrder'), value: BUSINESS.mailOrderNumber }]
+    : []),
+  { term: t('footer.business.address'), value: address },
+];
+---
+
+<dl class="biz-info">
+  {
+    rows.map((row) => (
+      <>
+        <dt>{row.term}</dt>
+        <dd>{row.value}</dd>
+      </>
+    ))
+  }
+  <dt>{t('footer.business.email')}</dt>
+  <dd><a href={`mailto:${BUSINESS.email}`}>{BUSINESS.email}</a></dd>
+</dl>

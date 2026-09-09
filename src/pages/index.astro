@@ -1,0 +1,11 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Home from '../components/Home.astro';
+import { HOME } from '../i18n/home';
+
+const copy = HOME.ko;
+---
+
+<BaseLayout title={copy.metaTitle} description={copy.metaDescription}>
+  <Home locale="ko" />
+</BaseLayout>
