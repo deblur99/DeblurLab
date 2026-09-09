@@ -39,11 +39,16 @@ const pageTitle = path === '/' ? `DeblurLab — ${t('site.tagline')}` : `${title
     <meta property="og:title" content={pageTitle} />
     <meta property="og:description" content={description} />
     <meta property="og:url" content={canonical} />
-    <meta property="og:image" content={new URL('/deblurlab-logo.png', SITE_URL).href} />
+    <!-- 링크 미리보기에서 투명 PNG 는 배경이 예측 불가하게 깔리므로 불투명본을 쓴다. -->
+    <meta property="og:image" content={new URL('/social-card.png', SITE_URL).href} />
     <meta name="twitter:card" content="summary" />
 
-    <link rel="icon" href="/favicon.png" type="image/png" />
-    <link rel="apple-touch-icon" href="/deblurlab-logo.png" />
+    <!-- SVG 를 먼저 두면 지원하는 브라우저는 어느 배율에서도 선명하게 그린다.
+         PNG 는 그 외 브라우저용 대체본이다. -->
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <link rel="icon" href="/favicon-32.png" type="image/png" sizes="32x32" />
+    <link rel="icon" href="/favicon-16.png" type="image/png" sizes="16x16" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
 
     <link
       rel="stylesheet"

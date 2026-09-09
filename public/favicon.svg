@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="7.25 7.25 49.5 49.5" role="img" aria-label="DeblurLab">
+  <title>DeblurLab</title>
+  <!--
+    Eraser mascot: axonometric block with a paper sleeve.
+    Basis vectors X=(26,13) long axis, Y=(-16,8) depth, Z=(0,9) height.
+
+    Height is deliberately shallow. An earlier version used Z=19, which made the
+    block read as a cardboard box with packing tape rather than an eraser; the
+    flat, elongated proportion is what identifies it.
+
+    Only two body tones (light top, darker sides). Fine gradations disappear once
+    the icon is scaled to 16px, so fewer high-contrast tones preserve the form.
+    The sleeve uses a much darker tone; without it the mark is just a pink blob.
+    Same-color stroke with round joins softens corners and closes the hairline
+    seams that otherwise appear between adjacent faces.
+
+    The viewBox is cropped to the shape's bounding box (centered on 32,32) plus a
+    small margin. A full 0 0 64 64 box left the flat shape filling only 47% of the
+    height, which read as mush at 16px.
+
+    No background rect on purpose: this sits directly on the browser tab color.
+  -->
+  <g stroke-linejoin="round" stroke-width="1.5">
+    <!-- right end face -->
+    <path fill="#B03370" stroke="#B03370" d="M53 30 L37 38 L37 47 L53 39 Z" />
+    <!-- long front face -->
+    <path fill="#C93C81" stroke="#C93C81" d="M11 25 L37 38 L37 47 L11 34 Z" />
+    <!-- top face -->
+    <path fill="#F06BA8" stroke="#F06BA8" d="M27 17 L53 30 L37 38 L11 25 Z" />
+    <!-- sleeve, front -->
+    <path fill="#5E1139" stroke="#5E1139" d="M20.88 29.94 L27.12 33.06 L27.12 42.06 L20.88 38.94 Z" />
+    <!-- sleeve, top -->
+    <path fill="#7E1A4C" stroke="#7E1A4C" d="M36.88 21.94 L43.12 25.06 L27.12 33.06 L20.88 29.94 Z" />
+  </g>
+</svg>
