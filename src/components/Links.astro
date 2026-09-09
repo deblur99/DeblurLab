@@ -101,18 +101,8 @@ const DEFAULT_CAMPAIGN = 'linkinbio';
 </div>
 
 <script>
-  // 숏폼 프로필의 링크가 ?ct=instagram_reels 같은 값을 달고 들어온다.
-  // 그 값을 App Store 링크로 그대로 넘겨야 App Analytics에서 채널별로 잡힌다.
-  const params = new URLSearchParams(window.location.search);
-  const campaign = params.get('ct') ?? params.get('utm_source');
-
-  if (campaign && /^[\w.-]{1,80}$/.test(campaign)) {
-    for (const anchor of document.querySelectorAll<HTMLAnchorElement>('[data-app-store]')) {
-      const url = new URL(anchor.href);
-      url.searchParams.set('ct', campaign);
-      anchor.href = url.toString();
-    }
-  }
+  import { propagateCampaign } from '../scripts/campaign';
+  propagateCampaign();
 </script>
 
 <style>

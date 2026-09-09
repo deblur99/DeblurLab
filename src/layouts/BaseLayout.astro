@@ -59,5 +59,10 @@ const pageTitle = path === '/' ? `DeblurLab — ${t('site.tagline')}` : `${title
       <slot />
     </main>
     <SiteFooter locale={locale} />
+
+    <script>
+      import { track } from '../scripts/track';
+      track();
+    </script>
   </body>
 </html>
