@@ -17,8 +17,11 @@ export const BUSINESS = {
   ownerEn: 'Hyeonmin Han',
   registrationNumber: '466-14-03145',
   mailOrderNumber: null as string | null,
-  addressKo: '충남 천안시 서북구 두정로 230 4층',
-  addressEn: '4F, 230 Dujeong-ro, Seobuk-gu, Cheonan-si, Chungcheongnam-do, Republic of Korea',
+  // 전자상거래법상 표시 의무 항목이라 사업자등록증과 글자 그대로 일치해야 한다.
+  // 호수까지 없으면 같은 건물의 다른 사업장과 구별되지 않는다.
+  addressKo: '충청남도 천안시 서북구 두정로 230, 4층 407-a34호(두정동, 코리타운)',
+  addressEn:
+    'Rm 407-a34, 4F, 230 Dujeong-ro, Seobuk-gu, Cheonan-si, Chungcheongnam-do, Republic of Korea',
   email: CONTACT_EMAIL,
 } as const;
 
