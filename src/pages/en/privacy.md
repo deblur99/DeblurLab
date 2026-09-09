@@ -99,6 +99,7 @@ Using the app's reset function or deleting the app removes all stored settings a
 - We do not set cookies or install tracking scripts to identify visitors.
 - Our hosting provider (Vercel Inc.) may keep its own access logs (IP address, browser information, requested path) to operate and secure the service. Those logs are handled under the provider's own policy.
 - Links may carry query parameters such as `ct` or `utm_source` so we can tell which channel a visit came from. These are used for channel-level counts only and do not identify individuals.
+- To exclude your own visits from those counts, visiting with `?nohit=1` stores a single opt-out value in your browser's localStorage. Visiting with `?nohit=0` clears it. This value does not identify the visitor and is never sent anywhere.
 
 ## 5. Children's privacy
 
