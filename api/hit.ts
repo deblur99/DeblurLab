@@ -135,7 +135,16 @@ export default async function handler(req: HitRequest, res: HitResponse) {
   }
 
   // 설정이 빠져 있어도 사이트는 정상 동작해야 한다.
+  // 다만 조용히 넘기면 "왜 집계가 0인가"를 추적할 수 없으므로 무엇이 빠졌는지는 남긴다.
   if (!SUPABASE_URL || !SERVICE_ROLE_KEY) {
+    console.error(
+      `[hit] 환경변수 누락으로 집계 건너뜀: ${[
+        !SUPABASE_URL && 'SUPABASE_URL',
+        !SERVICE_ROLE_KEY && 'SUPABASE_SERVICE_ROLE_KEY',
+      ]
+        .filter(Boolean)
+        .join(', ')}`,
+    );
     res.status(204).end();
     return;
   }
@@ -154,7 +163,7 @@ export default async function handler(req: HitRequest, res: HitResponse) {
       is_bot: looksLikeBot(userAgent),
     };
 
-    await fetch(`${SUPABASE_URL}/rest/v1/page_hits`, {
+    const upstream = await fetch(`${SUPABASE_URL}/rest/v1/page_hits`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -164,8 +173,13 @@ export default async function handler(req: HitRequest, res: HitResponse) {
       },
       body: JSON.stringify(row),
     });
-  } catch {
-    // 집계 실패는 조용히 넘긴다.
+
+    // 응답 본문에 키는 담기지 않으므로 그대로 남겨도 안전하다.
+    if (!upstream.ok) {
+      console.error(`[hit] 저장 실패 ${upstream.status}: ${await upstream.text()}`);
+    }
+  } catch (error) {
+    console.error('[hit] 저장 중 예외:', error instanceof Error ? error.message : error);
   }
 
   res.status(204).end();
