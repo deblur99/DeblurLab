@@ -33,20 +33,83 @@ const LOCALE_LABEL: Record<Locale, string> = { ko: '한국어', en: 'English' };
       }
     </nav>
 
-    <div class="lang-switch" role="group" aria-label={t('lang.label')}>
-      {
-        LOCALES.map((l) => (
-          <a
-            href={localePath(l, path)}
-            hreflang={l}
-            lang={l}
-            aria-current={l === locale ? 'true' : undefined}
+    <div class="header-controls">
+      <div class="lang-switch" role="group" aria-label={t('lang.label')}>
+        {
+          LOCALES.map((l) => (
+            <a
+              href={localePath(l, path)}
+              hreflang={l}
+              lang={l}
+              aria-current={l === locale ? 'true' : undefined}
+            >
+              {l.toUpperCase()}
+              <span class="sr-only"> {LOCALE_LABEL[l]}</span>
+            </a>
+          ))
+        }
+      </div>
+
+      <div class="theme-switch" role="group" aria-label={t('theme.label')}>
+        <button
+          type="button"
+          data-theme-option="system"
+          aria-pressed="true"
+          aria-label={t('theme.system')}
+        >
+          <svg
+            viewBox="0 0 24 24"
+            aria-hidden="true"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
           >
-            {l.toUpperCase()}
-            <span class="sr-only"> {LOCALE_LABEL[l]}</span>
-          </a>
-        ))
-      }
+            <rect x="2" y="3" width="20" height="14" rx="2"></rect>
+            <path d="M8 21h8M12 17v4"></path>
+          </svg>
+        </button>
+        <button
+          type="button"
+          data-theme-option="light"
+          aria-pressed="false"
+          aria-label={t('theme.light')}
+        >
+          <svg
+            viewBox="0 0 24 24"
+            aria-hidden="true"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          >
+            <circle cx="12" cy="12" r="4"></circle>
+            <path
+              d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"
+            ></path>
+          </svg>
+        </button>
+        <button
+          type="button"
+          data-theme-option="dark"
+          aria-pressed="false"
+          aria-label={t('theme.dark')}
+        >
+          <svg
+            viewBox="0 0 24 24"
+            aria-hidden="true"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          >
+            <path d="M21 14.5A8.5 8.5 0 1 1 9.5 3a7 7 0 0 0 11.5 11.5z"></path>
+          </svg>
+        </button>
+      </div>
     </div>
   </div>
 </header>
