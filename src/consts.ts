@@ -6,17 +6,15 @@ export const DEFAULT_LOCALE: Locale = 'ko';
 export const SITE_URL = 'https://deblurlab.com';
 export const CONTACT_EMAIL = 'contact@deblurlab.com';
 
-/**
- * 통신판매업 신고번호는 발급 전까지 null로 둔다.
- * 값이 있을 때만 사업자 정보 블록에 노출된다.
- */
 export const BUSINESS = {
   nameKo: '디블러랩',
   nameEn: 'DeblurLab',
   ownerKo: '한현민',
   ownerEn: 'Hyeonmin Han',
   registrationNumber: '466-14-03145',
-  mailOrderNumber: null as string | null,
+  /** 한글 표기 · 영문 푸터 겸용 표기 */
+  mailOrderNumberKo: '제 2026-충남천안-2080 호',
+  mailOrderNumberEn: '2026-ChungnamCheonan-2080',
   // 전자상거래법상 표시 의무 항목이라 사업자등록증과 글자 그대로 일치해야 한다.
   // 호수까지 없으면 같은 건물의 다른 사업장과 구별되지 않는다.
   addressKo: '충청남도 천안시 서북구 두정로 230, 4층 407-a34호(두정동, 코리타운)',

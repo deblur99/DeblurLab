@@ -12,14 +12,14 @@ const t = useTranslations(locale);
 const name = locale === 'ko' ? `${BUSINESS.nameKo} (${BUSINESS.nameEn})` : BUSINESS.nameEn;
 const owner = locale === 'ko' ? BUSINESS.ownerKo : BUSINESS.ownerEn;
 const address = locale === 'ko' ? BUSINESS.addressKo : BUSINESS.addressEn;
+const mailOrder =
+  locale === 'ko' ? BUSINESS.mailOrderNumberKo : BUSINESS.mailOrderNumberEn;
 
 const rows: Array<{ term: string; value: string }> = [
   { term: t('footer.business.name'), value: name },
   { term: t('footer.business.owner'), value: owner },
   { term: t('footer.business.registration'), value: BUSINESS.registrationNumber },
-  ...(BUSINESS.mailOrderNumber
-    ? [{ term: t('footer.business.mailOrder'), value: BUSINESS.mailOrderNumber }]
-    : []),
+  { term: t('footer.business.mailOrder'), value: mailOrder },
   { term: t('footer.business.address'), value: address },
 ];
 ---
